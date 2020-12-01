@@ -36,6 +36,11 @@ struct ContentView: View {
                 Image(systemName: "square.and.pencil")
                 Text("Order")
             }
+            
+            FavoriteView().tabItem {
+                Image(systemName: "star.fill")
+                Text("Favorites")
+            }
         }
     }
 }

@@ -13,8 +13,10 @@ struct CheckoutView: View {
     @State private var addLoyaltyDetails = false
     @State private var loyaltyNumber = ""
     @State private var tipAmount = 1
+    @State private var pickupTime = 1
     @State private var showingPaymentAlert = false
     static let paymentTypes = ["Cash", "Credit Card", "iDine Points"]
+    static let pickupTimeTypes = ["Now", "Tonight", "Tomorrow Morning"]
     static let tipAmounts = [10, 15, 20, 25, 0]
     var totalPrice: Double {
         let total = Double(order.total)
@@ -28,6 +30,11 @@ struct CheckoutView: View {
                 Picker("How do you want to pay?", selection: $paymentType) {
                     ForEach(0 ..< Self.paymentTypes.count) {
                         Text(Self.paymentTypes[$0])
+                    }
+                }
+                Picker("When will you come for the purchase?", selection: $pickupTime) {
+                    ForEach(0 ..< Self.pickupTimeTypes.count) {
+                        Text(Self.pickupTimeTypes[$0])
                     }
                 }
                 Toggle(isOn: $addLoyaltyDetails.animation(), label: {
@@ -47,7 +54,7 @@ struct CheckoutView: View {
                 }
             }
             
-            Section(header: Text("Total $\(totalPrice, specifier: "%.2f")")) {
+            Section(header: Text("Total $\(totalPrice, specifier: "%.2f")").font(.largeTitle)) {
                 Button("Confirm order") {
                     self.showingPaymentAlert.toggle()
                 }
